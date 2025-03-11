@@ -1,7 +1,8 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/04ef0hs606dypnd9?svg=true)](https://ci.appveyor.com/project/Al101020/13-2-07-dz-frontend)<dr>
-https://al101020.github.io/13-2.07_DZ-frontend/<dr>
+[![Build status](https://ci.appveyor.com/api/projects/status/04ef0hs606dypnd9?svg=true)](https://ci.appveyor.com/project/Al101020/13-2-07-dz-frontend)
+<dr>https://al101020.github.io/13-2.07_DZ-frontend/<dr>
 
 # Домашнее задание к занятию "7. Работа с HTTP"
+<dr>https://github.com/Al101020/13-2.07_DZ-frontend/<dr>
 
 Правила сдачи задания:
 
