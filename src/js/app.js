@@ -8,7 +8,14 @@ const app = new HelpDesk(root, ticketService);
 
 app.init();
 
-// до БЫЛО
+// до БЫЛО  console.log(app);
 
-console.log(ticketService);
-console.log(app);
+// import TicketView from './TicketView';
+// const ticketView = new TicketView;
+// ticketView.load();// console.log(ticketView);
+// ---------
+//   console.log(app);
+console.log(app.ticketService); // console.log(app.ticketService.list);
+//   console.log(app.ticketService.tickets);
+app.ticketService.list();
+console.log(app.ticketService.tickets);
