@@ -2,7 +2,7 @@
 <dr>https://al101020.github.io/13-2.07_DZ-frontend/<dr>
 
 # Домашнее задание к занятию "7. Работа с HTTP"
-<dr>https://github.com/Al101020/13-2.07_DZ-frontend/<dr>
+<dr>https://github.com/netology-code/ahj-homeworks/tree/AHJ-50/http<dr>
 
 Правила сдачи задания:
 
