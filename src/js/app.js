@@ -13,9 +13,9 @@ app.init();
 // import TicketView from './TicketView';
 // const ticketView = new TicketView;
 // ticketView.load();// console.log(ticketView);
-  // ---------
+// ---------
 //   console.log(app);
-  console.log(app.ticketService);// console.log(app.ticketService.list);
+console.log(app.ticketService); // console.log(app.ticketService.list);
 //   console.log(app.ticketService.tickets);
-  app.ticketService.list();
+app.ticketService.list();
 //   console.log(app.ticketService.tickets);
