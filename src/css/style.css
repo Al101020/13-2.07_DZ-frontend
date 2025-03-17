@@ -1,5 +1,27 @@
+body {
+    padding-right: auto;
+}
+
 .ticket-btn-add {
+    display: flex;
     background: rgb(189, 246, 189);
+    justify-content: flex-end;
+    /* float: right; */
+    /* margin-right: 100%; */
+    margin-left: auto;
+    margin-bottom: 10px;
+    height: 40px;
+
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+
+    border-radius: 10px;
+}
+
+.btn {
+    display: flex;
+    text-align: right;
 }
 
 .ticketElement {
@@ -8,9 +30,15 @@
     padding: 10px 5px;
 }
 
-.checkboxDone, .buttonX {
+.ticket {
+    display: flex;
+    content: center;
+    align-items: center;
+}
+
+.checkboxDone, .buttonX, .buttonEdit {
     border: 1px solid #000;
-    margin: 5px;
+    margin: 5px 10px;
     padding: 5px;
     width: 20px;
     height: 20px;
@@ -19,8 +47,20 @@
     justify-content: center;
     align-items: center;
 
-    border-radius: 50%;
+    border-radius: 50%;  
 }
+
+.buttonX, .buttonEdit, .ticket-btn-add, .checkbox-input {
+    cursor: pointer;
+}
+
+.title, .created {
+    margin: 5px 10px;
+}
+
+/* .buttonEdit {
+    margin: 0px 15px;
+} */
 
 /* .buttonX {
     border: 1px solid #000;

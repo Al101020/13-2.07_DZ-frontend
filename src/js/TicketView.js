@@ -4,8 +4,6 @@
  * */
 const container = document.querySelector('.container'); // console.log(container);
 
-// Пока пустой закоментирую
-
 export default class TicketView {
   constructor() {
     this.name = 'Ticket View';
@@ -34,15 +32,25 @@ export default class TicketView {
       ticket.appendChild(title);
       const created = document.createElement('div');
       created.className = 'created';
-      //   created.textContent = new Date(tickets[i].created).toISOString().split('T')[0];
+      const d = new Date(tickets[i].created);    // console.log(d);
+      const year = d.getFullYear(); // год
+      const month_ = d.getMonth() + 1; // почему то неправильно вычисляет месяц, добавил + 1
+      const month = month_ < 10 ? `0${month_}` : month_; // месяц 
+      const date = d.getDate() < 10 ? `0${d.getDate()}` : d.getDate(); // день
+      const hour = d.getHours() < 10 ? `0${d.getHours()}` : d.getHours(); // час
+      const minutes = d.getMinutes() < 10 ? `0${d.getMinutes()}` : d.getMinutes(); // минуты
+      created.textContent = `${date}.${month}.${year} ${hour}.${minutes}`;
       ticket.appendChild(created);
-      const buttonEdit = document.createElement('div'); // insertAdjacentHTML('afterend', ) &#9998;
+
+      const buttonEdit = document.createElement('div');
       buttonEdit.classList.add('buttonEdit');
-      buttonEdit.textContent = '&#9998;';
       ticket.appendChild(buttonEdit);
-      const buttonX = document.createElement('div'); // insertAdjacentHTML('afterend', ) &#9998;
+    buttonEdit.addEventListener('click', () => {console.log('buttonEdit')});
+      buttonEdit.insertAdjacentHTML('afterbegin', '<p>&#9998;</p>');
+      const buttonX = document.createElement('div');
       buttonX.classList.add('buttonX');
       buttonX.textContent = 'X';
+    buttonX.addEventListener('click', () => {console.log('buttonX')});
       ticket.appendChild(buttonX);
 
       const description = document.createElement('div');
@@ -50,5 +58,10 @@ export default class TicketView {
       description.textContent = tickets[i].description;
       ticketElement.appendChild(description);
     }
+  }
+
+  modalAdd(e) {
+    e.preventDefault();
+    console.log('ticketBtnAdd');
   }
 }
