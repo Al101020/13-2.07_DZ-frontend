@@ -25,7 +25,7 @@ body {
     text-align: right;
 }
 
-.ticketElement {
+.ticket-element {
     border: 1px solid #000;
     margin: 1px;
     padding: 10px 5px;
@@ -38,7 +38,7 @@ body {
     align-items: center;
 }
 
-.checkboxDone, .buttonX, .buttonEdit {
+.checkbox-done, .button-x, .button-edit {
     border: 1px solid #000;
     margin: 5px 10px;
     padding: 5px;
@@ -52,11 +52,11 @@ body {
     border-radius: 50%;  
 }
 
-.buttonX, .buttonEdit {
+.button-x, .button-edit {
     background-color: aliceblue;
 }
 
-.buttonX, .buttonEdit, .ticket-btn-add, .checkbox-input {
+.button-x, .button-edit, .ticket-btn-add, .checkbox-input {
     cursor: pointer;
 }
 
@@ -69,20 +69,12 @@ body {
     text-align: center;
 }
 
-/* .buttonEdit {
-    margin: 0px 15px;
-} */
-
-/* .buttonX {
-    border: 1px solid #000;
-} */
-
 .description {
     display: none;
 }
 
 
-.displayNone {
+.display-none {
     display: none;
 }
 
@@ -118,7 +110,7 @@ body {
   }
 
 
-.divForm {
+.div-form {
     padding: 3px 23px 3px 15px;
 }
 
@@ -135,19 +127,19 @@ input.dd {
     height: 50px;
 }
 
-.divButton {
+.div-button {
     padding: 3px 0px;
     text-align: right;
 }
 
-.btnOk {
+.btn-ok {
     margin: 0px 0px 0px 5px;
     min-height: 30px;
     border: 1px solid #000;
     border-radius: 5px;
 }
 
-.btnCancel {
+.btn-cancel {
     margin: 0px 5px 0px 0px;
     min-height: 30px;
     border: 1px solid #000;

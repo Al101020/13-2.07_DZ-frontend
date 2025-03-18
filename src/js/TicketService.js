@@ -28,7 +28,7 @@ export default class TicketService {
     ticketView.modalAdd(e);
     const body = document.querySelector('body');
     body.insertAdjacentHTML('beforeEnd', '<div class="modal-overlay" id="modal-overlay"></div>');
-    const cansel = document.querySelector('.btnCancel');
+    const cansel = document.querySelector('.btn-cancel');
     cansel.addEventListener('click', (event) => {
       event.preventDefault();
       const modalOverlay = body.querySelector('.modal-overlay');
@@ -36,7 +36,7 @@ export default class TicketService {
       const modalAdd = body.querySelector('.modal-add');
       modalAdd.remove();
     });
-    const ok = document.querySelector('.btnOk');
+    const ok = document.querySelector('.btn-ok');
     console.log(ok);
   }
 

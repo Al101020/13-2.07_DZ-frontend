@@ -2,7 +2,11 @@
  *  Класс для отображения тикетов на странице.
  *  Он содержит методы для генерации разметки тикета.
  * */
+import TicketForm from './TicketForm';
+
 const container = document.querySelector('.container'); // console.log(container);
+const ticketForm = new TicketForm();
+console.log(ticketForm);
 
 export default class TicketView {
   constructor() {
@@ -13,14 +17,14 @@ export default class TicketView {
     console.log(this.name);
     for (let i = 0; i < Object.entries(tickets).length; i++) {
       const ticketElement = document.createElement('div');
-      ticketElement.className = 'ticketElement';
+      ticketElement.className = 'ticket-element';
       container.appendChild(ticketElement);
 
       const ticket = document.createElement('div');
       ticket.className = 'ticket';
       ticketElement.appendChild(ticket);
       const inputDiv = document.createElement('div');
-      inputDiv.className = 'checkboxDone';
+      inputDiv.className = 'checkbox-done';
       ticket.appendChild(inputDiv);
       const inputCheckbox = document.createElement('input');
       inputCheckbox.setAttribute('type', 'checkbox');
@@ -50,7 +54,7 @@ export default class TicketView {
       });
       buttonEdit.insertAdjacentHTML('afterbegin', '<p>&#9998;</p>');
       const buttonX = document.createElement('div');
-      buttonX.classList.add('buttonX');
+      buttonX.classList.add('button-x');
       buttonX.textContent = 'X';
       buttonX.addEventListener('click', () => {
         console.log('buttonX');
@@ -66,32 +70,6 @@ export default class TicketView {
 
   modalAdd(e) {
     e.preventDefault();
-    // console.log('ticketBtnAdd');
-    const body = document.querySelector('body');
-    const modal = document.createElement('div');
-    modal.insertAdjacentHTML('afterbegin', '<div class="title">Добавить тикет</div>');
-    modal.classList.add('modal-add');
-    body.appendChild(modal);
-
-    const modalAdd = document.querySelector('.modal-add');
-
-    const divForm = document.createElement('div');
-    divForm.classList.add('divForm');
-    // divForm.textContent = 'divForm видно?';
-    const formAdd = document.createElement('form');
-    formAdd.classList.add('form');
-
-    const divButton = document.createElement('div');
-    divButton.classList.add('divButton');
-    divButton.insertAdjacentHTML('afterbegin', '<button class="btnOk">Ok</button>');
-    divButton.insertAdjacentHTML('afterbegin', '<button class="btnCancel">Отмена</button>');
-    formAdd.appendChild(divButton); // ???
-    formAdd.insertAdjacentHTML('afterbegin', '<input type="text" class="dd" name="name" /><br />');
-    formAdd.insertAdjacentHTML('afterbegin', '<label for="d">Подробное описание</label><br />');
-    formAdd.insertAdjacentHTML('afterbegin', '<input type="text" class="d" name="name" /><br />');
-    formAdd.insertAdjacentHTML('afterbegin', '<label for="d">Краткое описание</label><br />');
-    divForm.appendChild(formAdd);
-
-    modalAdd.appendChild(divForm);
+    ticketForm.form();
   }
 }
