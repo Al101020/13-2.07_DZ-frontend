@@ -24,6 +24,22 @@ export default class TicketService {
     ticketView.list(this.tickets);
   }
 
+  modalAdd(e) {
+    ticketView.modalAdd(e);
+    const body = document.querySelector('body');
+    body.insertAdjacentHTML('beforeEnd', '<div class="modal-overlay" id="modal-overlay"></div>');
+    const cansel = document.querySelector('.btnCancel');
+    cansel.addEventListener('click', (event) => {
+      event.preventDefault();
+      const modalOverlay = body.querySelector('.modal-overlay');
+      modalOverlay.remove();
+      const modalAdd = body.querySelector('.modal-add');
+      modalAdd.remove();
+    });
+    const ok = document.querySelector('.btnOk');
+    console.log(ok);
+  }
+
   // Пока пустое закоментирую
 
   // list(callback) {}
