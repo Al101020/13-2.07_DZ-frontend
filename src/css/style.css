@@ -38,6 +38,10 @@ body {
     align-items: center;
 }
 
+.title {
+    margin: 0px 15px 0px 0px;
+}
+
 .checkbox-done, .button-x, .button-edit {
     border: 1px solid #000;
     margin: 5px 10px;

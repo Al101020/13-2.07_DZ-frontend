@@ -53,12 +53,12 @@ export default class TicketView {
         // console.log('button-edit');
         this.modalEdit(e);
         const ticketElem = e.target.closest('.ticket-element');
-        const title2 = ticketElem.querySelector('.title').textContent; // краткое описание
+        const modalTitle = ticketElem.querySelector('.title').textContent; // краткое описание
         const description = ticketElem.querySelector('.description').textContent; // подробное описание
         const modalEdit = document.querySelector('.modal-edit');
         const dInputModal = modalEdit.querySelector('input.d');
         const ddInputModal = modalEdit.querySelector('input.dd');
-        dInputModal.value = title2;
+        dInputModal.value = modalTitle;
         ddInputModal.value = description;
       });
       buttonEdit.insertAdjacentHTML('afterbegin', '<p>&#9998;</p>');
@@ -84,9 +84,28 @@ export default class TicketView {
           e.target.classList.value === 'title' ||
           e.target.classList.value === 'ticket-element'
         ) {
-          console.log(e.target.classList.value);
-        } // console.log('123');
-        // console.log('не то');
+          const currentTicket = e.target.closest('.ticket-element');
+          const descriptionDisplay = currentTicket.querySelector('.description');
+
+          const ticketAll = e.target.closest('.container').querySelectorAll('.ticket-element');
+
+          if (descriptionDisplay.classList.contains('display-none')) {
+            for (let ii = 0; ticketAll.length > ii; ii++) {
+              console.log(ticketAll[ii].querySelector('.description').classList);
+              if (!ticketAll[ii].querySelector('.description').classList.contains('display-none')) {
+                ticketAll[ii].querySelector('.description').classList.add('display-none');
+              }
+              // ticketAll[i].querySelectorAll('.description').classList.add('display-none');
+              // console.log(ticketAll[i].querySelectorAll('.description'));
+            }
+            descriptionDisplay.classList.remove('display-none'); // console.log(descriptionDisplay);
+          } else {
+            descriptionDisplay.classList.add('display-none');
+          }
+
+          // console.log(ticketAll.length);
+          // if () {}
+        }
       });
       ticketElement.appendChild(description);
     }
