@@ -49,27 +49,95 @@ export default class TicketView {
       const buttonEdit = document.createElement('div');
       buttonEdit.classList.add('button-edit');
       ticket.appendChild(buttonEdit);
-      buttonEdit.addEventListener('click', () => {
-        console.log('button-edit');
+      buttonEdit.addEventListener('click', (e) => {
+        // console.log('button-edit');
+        this.modalEdit(e);
+        const ticketElem = e.target.closest('.ticket-element');
+        const title2 = ticketElem.querySelector('.title').textContent; // краткое описание
+        const description = ticketElem.querySelector('.description').textContent; // подробное описание
+        const modalEdit = document.querySelector('.modal-edit');
+        const dInputModal = modalEdit.querySelector('input.d');
+        const ddInputModal = modalEdit.querySelector('input.dd');
+        dInputModal.value = title2;
+        ddInputModal.value = description;
       });
       buttonEdit.insertAdjacentHTML('afterbegin', '<p>&#9998;</p>');
+
       const buttonX = document.createElement('div');
       buttonX.classList.add('button-x');
       buttonX.textContent = 'X';
-      buttonX.addEventListener('click', () => {
-        console.log('buttonX');
+      buttonX.addEventListener('click', (e) => {
+        // console.log('buttonX');
+        this.modalDelete(e);
       });
       ticket.appendChild(buttonX);
 
       const description = document.createElement('div');
-      description.className = 'description';
+      // description.className = 'description display-none';
+      description.classList.add('description');
+      description.classList.add('display-none');
       description.textContent = tickets[i].description;
+      ticketElement.addEventListener('click', (e) => {
+        if (
+          e.target.classList.value === 'ticket' ||
+          e.target.classList.value === 'created' ||
+          e.target.classList.value === 'title' ||
+          e.target.classList.value === 'ticket-element'
+        ) {
+          console.log(e.target.classList.value);
+        } // console.log('123');
+        // console.log('не то');
+      });
       ticketElement.appendChild(description);
     }
   }
 
   modalAdd(e) {
     e.preventDefault();
-    ticketForm.form();
+    ticketForm.form('Добавить тикет');
+  }
+
+  modalEdit(e) {
+    e.preventDefault();
+    ticketForm.form('Изменить тикет');
+
+    const body = document.querySelector('body');
+    body.insertAdjacentHTML('beforeEnd', '<div class="modal-overlay"></div>');
+    const cansel = document.querySelector('.btn-cancel');
+    cansel.addEventListener('click', (event) => {
+      event.preventDefault();
+      const modalOverlay = body.querySelector('.modal-overlay');
+      modalOverlay.remove();
+      const modalEdit = body.querySelector('.modal-edit');
+      modalEdit.remove();
+    });
+    const ok = document.querySelector('.btn-ok');
+
+    ok.addEventListener('click', (event) => {
+      event.preventDefault();
+      console.log(ok);
+    });
+  }
+
+  modalDelete(e) {
+    e.preventDefault();
+    ticketForm.form('Удалить тикет');
+
+    const body = document.querySelector('body');
+    body.insertAdjacentHTML('beforeEnd', '<div class="modal-overlay"></div>');
+    const cansel = document.querySelector('.btn-cancel');
+    cansel.addEventListener('click', (event) => {
+      event.preventDefault();
+      const modalOverlay = body.querySelector('.modal-overlay');
+      modalOverlay.remove();
+      const modalEdit = body.querySelector('.modal-delete');
+      modalEdit.remove();
+    });
+    const ok = document.querySelector('.btn-ok');
+
+    ok.addEventListener('click', (event) => {
+      event.preventDefault();
+      console.log(ok);
+    });
   }
 }

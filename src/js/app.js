@@ -22,3 +22,6 @@ ticketBtnAdd.addEventListener('click', (e) => {
   e.preventDefault(); // console.log('ticketBtnAdd');
   app.ticketService.modalAdd(e);
 });
+
+// const tickets = document.querySelector('.ticket-form');
+// console.log(tickets.children);

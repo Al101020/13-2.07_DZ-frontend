@@ -59,18 +59,30 @@ body {
 .button-x, .button-edit, .ticket-btn-add, .checkbox-input {
     cursor: pointer;
 }
+.button-edit {
+    background-color: rgb(203, 233, 243);
+}
+
+.button-x {
+    background-color: rgb(223, 203, 243);
+}
+
+/* .modal-overlay {
+    opacity: 1;
+} */
 
 /* --- ModalAdd --- */
-.title, .created {
+.modal-title, .created {
     padding: 2px auto;
 }
 
-.title {
+.modal-title {
     text-align: center;
 }
 
 .description {
-    display: none;
+    margin: 15px 10px 10px 50px ;
+    /* display: none; */
 }
 
 
@@ -84,7 +96,8 @@ body {
     min-height: 20px;
     border-radius: 10px;
     margin: 0px 10%;
-    background-color: rgb(223, 203, 243);
+    background-color: rgb(189, 246, 189);
+    /* background-color: rgb(223, 203, 243); */
 
     position: fixed;
     top: 40%;
@@ -95,18 +108,15 @@ body {
 }
 
 .modal-overlay {
-    /* рекомендация:
-       Не зацикливайтесь на значении "1000", у вас 
-       должна быть задокументированная система для свойства z-index,
-       которую необходимо соблюдать. Данное значение должно быть
-       довольно большим в вашей системе.
-    */	
     z-index: 1000;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+
+    background: rgb(255, 255, 255);
+    opacity: 0.5;
   }
 
 
@@ -146,4 +156,43 @@ input.dd {
     border-radius: 5px;
 }
 
+/* --- ModalEdit --- */
 
+.modal-edit {
+    border: 1px solid #000;
+    min-width: 300px;
+    min-height: 20px;
+    border-radius: 10px;
+    margin: 0px 10%;
+    background-color: rgb(203, 233, 243);
+
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+
+    z-index: 1010;
+}
+
+/* --- ModalDelete --- */
+
+.modal-delete {
+    border: 1px solid #000;
+    min-width: 300px;
+    min-height: 20px;
+    border-radius: 10px;
+    margin: 0px 10%;
+    background-color: rgb(223, 203, 243);
+
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+
+    z-index: 1010;
+}
+
+.text-del {
+    margin: 10px 10px 10px 10px;
+    text-align: center;
+}

@@ -18,10 +18,21 @@ export default class TicketService {
   }
 
   async list() {
-    const response = await fetch('http://localhost:7070/?method=allTickets');
-    this.tickets = await response.json(); // console.log(Object.entries(this.tickets).length);
+    // const response = await fetch('http://localhost:7070/?method=allTickets');
+    // console.log(response);
+    // this.tickets = await response.json(); // console.log(Object.entries(this.tickets).length);
 
-    ticketView.list(this.tickets);
+    // ticketView.list(this.tickets);
+
+    try {
+      const response = await fetch('http://localhost:7070/?method=allTickets');
+      // console.log(response);
+      this.tickets = await response.json(); // console.log(Object.entries(this.tickets).length);
+
+      ticketView.list(this.tickets);
+    } catch (error) {
+      console.error('Ошибка:', error);
+    }
   }
 
   modalAdd(e) {
@@ -37,8 +48,29 @@ export default class TicketService {
       modalAdd.remove();
     });
     const ok = document.querySelector('.btn-ok');
-    console.log(ok);
+
+    ok.addEventListener('click', (event) => {
+      event.preventDefault();
+      console.log(ok);
+    });
   }
+
+  // modalEdit(e) {
+  //   console.log('button-edit!!!!!');
+  //   ticketView.modalEdit(e);
+  //   const body = document.querySelector('body');
+  //   body.insertAdjacentHTML('beforeEnd', '<div class="modal-overlay" id="modal-overlay"></div>');
+  //   const cansel = document.querySelector('.btn-cancel');
+  //   cansel.addEventListener('click', (event) => {
+  //     event.preventDefault();
+  //     const modalOverlay = body.querySelector('.modal-overlay');
+  //     modalOverlay.remove();
+  //     const modalAdd = body.querySelector('.modal-add');
+  //     modalAdd.remove();
+  //   });
+  //   const ok = document.querySelector('.btn-ok');
+  //   console.log(ok);
+  // }
 
   // Пока пустое закоментирую
 
