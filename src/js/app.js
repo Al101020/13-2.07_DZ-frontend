@@ -8,7 +8,7 @@ const app = new HelpDesk(root, ticketService);
 
 app.init();
 
-// до БЫЛО  console.log(app);
+// до БЫЛО  // console.log(app);
 
 console.log(app.ticketService); // console.log(app.ticketService.list);
 app.ticketService.list();

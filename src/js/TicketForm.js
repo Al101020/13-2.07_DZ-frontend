@@ -60,9 +60,25 @@ export default class TicketForm {
       divButton.insertAdjacentHTML('afterbegin', '<button class="btn-ok">Ok</button>');
       divButton.insertAdjacentHTML('afterbegin', '<button class="btn-cancel">Отмена</button>');
       formAdd.appendChild(divButton);
-      formAdd.insertAdjacentHTML('afterbegin', '<input type="text" class="dd" name="name" /><br />');
+      // formAdd.insertAdjacentHTML('afterbegin', '<input type="text" class="dd" name="name" /><br />');
+      const inputDd = document.createElement('input');
+      inputDd.type = 'text';
+      inputDd.id = 'dd';
+      inputDd.name = 'dd';
+      inputDd.classList.add('dd');
+      inputDd.value = 'Подробное описание тикета(description)';
+      formAdd.prepend(inputDd);
+
       formAdd.insertAdjacentHTML('afterbegin', '<label for="dd">Подробное описание</label><br />');
-      formAdd.insertAdjacentHTML('afterbegin', '<input type="text" class="d" name="name" /><br />');
+      // formAdd.insertAdjacentHTML('afterbegin', '<input type="text" class="d" name="name" /><br />');
+      const inputD = document.createElement('input');
+      inputD.type = 'text';
+      inputD.id = 'd';
+      inputD.name = 'd';
+      inputD.classList.add('d');
+      inputD.value = 'Краткое описание тикета(name)';
+      formAdd.prepend(inputD);
+
       formAdd.insertAdjacentHTML('afterbegin', '<label for="d">Краткое описание</label><br />');
       divForm.appendChild(formAdd);
 

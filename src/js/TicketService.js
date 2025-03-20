@@ -6,28 +6,27 @@ import TicketView from './TicketView';
 
 const ticketView = new TicketView();
 
-// import { ticketView } from './TicketView'
-// import Ticket from './Ticket'
-// console.log(Ticket);
-// const ticketHelpDesk = new Ticket;
-// console.log(ticketHelpDesk.id);
-
 export default class TicketService {
   constructor() {
     this.tickets = null;
   }
 
+  // async list() {
+  //   try {
+  //     const response = await fetch('http://localhost:7070/?method=allTickets');
+  //     this.tickets = await response.json();
+
+  //     ticketView.list(this.tickets);
+  //   } catch (error) {
+  //     console.error('Ошибка:', error);
+  //   }
+  // }
+
   async list() {
-    // const response = await fetch('http://localhost:7070/?method=allTickets');
-    // console.log(response);
-    // this.tickets = await response.json(); // console.log(Object.entries(this.tickets).length);
-
-    // ticketView.list(this.tickets);
-
     try {
       const response = await fetch('http://localhost:7070/?method=allTickets');
-      // console.log(response);
-      this.tickets = await response.json(); // console.log(Object.entries(this.tickets).length);
+
+      this.tickets = await response.json();
 
       ticketView.list(this.tickets);
     } catch (error) {
@@ -48,29 +47,41 @@ export default class TicketService {
       modalAdd.remove();
     });
     const ok = document.querySelector('.btn-ok');
-
-    ok.addEventListener('click', (event) => {
-      event.preventDefault();
-      console.log(ok);
+    ok.addEventListener('click', () => {
+      // (event) => { event.preventDefault();
+      this.create();
     });
   }
 
-  // modalEdit(e) {
-  //   console.log('button-edit!!!!!');
-  //   ticketView.modalEdit(e);
-  //   const body = document.querySelector('body');
-  //   body.insertAdjacentHTML('beforeEnd', '<div class="modal-overlay" id="modal-overlay"></div>');
-  //   const cansel = document.querySelector('.btn-cancel');
-  //   cansel.addEventListener('click', (event) => {
-  //     event.preventDefault();
-  //     const modalOverlay = body.querySelector('.modal-overlay');
-  //     modalOverlay.remove();
-  //     const modalAdd = body.querySelector('.modal-add');
-  //     modalAdd.remove();
-  //   });
-  //   const ok = document.querySelector('.btn-ok');
-  //   console.log(ok);
-  // }
+  async create() {
+    // data, callback
+    const { addTicket } = ticketView;
+    addTicket.name = document.querySelector('.d').value;
+    addTicket.description = document.querySelector('.dd').value;
+    console.log(addTicket);
+    try {
+      const response = await fetch('http://localhost:7070/?method=createTicket', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          // ???
+          name: addTicket.name,
+          description: addTicket.description,
+          status: false,
+        }),
+      });
+      this.tickets = await response.json();
+      console.log(this.tickets);
+    } catch (error) {
+      console.error('Ошибка:', error.message);
+      throw error;
+    }
+    const body = document.querySelector('body');
+    const modalOverlay = body.querySelector('.modal-overlay');
+    modalOverlay.remove();
+    const modalAdd = body.querySelector('.modal-add');
+    modalAdd.remove();
+  }
 
   // Пока пустое закоментирую
 
