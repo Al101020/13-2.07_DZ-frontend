@@ -6,7 +6,7 @@ import TicketForm from './TicketForm';
 
 const container = document.querySelector('.container'); // console.log(container);
 const ticketForm = new TicketForm();
-let parentElementDel = null;
+// let parentElementDel = null;
 console.log(ticketForm);
 
 export default class TicketView {
@@ -80,9 +80,11 @@ export default class TicketView {
       buttonX.classList.add('button-x');
       buttonX.textContent = 'X';
       buttonX.addEventListener('click', (e) => {
+        //
         // console.log('buttonX');
-        parentElementDel = e.target.closest('.ticket-element');
-        this.modalDelete(e);
+        // parentElementDel = e.target.closest('.ticket-element');
+        const eTargetTicketElement = e.target.closest('.ticket-element');
+        this.modalDelete(eTargetTicketElement);
       });
       ticket.appendChild(buttonX);
 
@@ -146,7 +148,7 @@ export default class TicketView {
     });
   }
 
-  modalDelete(e) {
+  modalDelete(eTargetTicketElement) {
     // e.preventDefault();
     ticketForm.form('Удалить тикет');
 
@@ -163,8 +165,9 @@ export default class TicketView {
     const ok = document.querySelector('.btn-ok');
 
     ok.addEventListener('click', () => {
-      // (event) => {   event.preventDefault();      // console.log(ok);
-      this.deleteTicket();
+      // (event) => {   event.preventDefault();
+      // console.log(e.target);
+      this.deleteTicket(eTargetTicketElement);
 
       // location.replace(); // принудительно перезагрузка страницы
       window.location.reload();
@@ -202,9 +205,9 @@ export default class TicketView {
   // }
 
   // async deleteTicket() {
-  async deleteTicket() {
-    console.log('кнопка Ok - Delete(X)');
-    const idDel = parentElementDel.querySelector('.id');
+  async deleteTicket(eTargetTicketElement) {
+    // console.log('кнопка Ok - Delete(X)');     // console.log(eTargetTicketElement);
+    const idDel = eTargetTicketElement.querySelector('.id');
     console.log(idDel.value);
 
     const xhr = new XMLHttpRequest();

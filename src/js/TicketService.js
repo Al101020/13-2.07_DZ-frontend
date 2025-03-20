@@ -58,7 +58,7 @@ export default class TicketService {
     const { addTicket } = ticketView;
     addTicket.name = document.querySelector('.d').value;
     addTicket.description = document.querySelector('.dd').value;
-    console.log(addTicket);
+    // console.log(addTicket);
     try {
       const response = await fetch('http://localhost:7070/?method=createTicket', {
         method: 'POST',
@@ -71,7 +71,7 @@ export default class TicketService {
         }),
       });
       this.tickets = await response.json();
-      console.log(this.tickets);
+      // console.log(this.tickets);
     } catch (error) {
       console.error('Ошибка:', error.message);
       throw error;
