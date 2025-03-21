@@ -7,7 +7,7 @@ import TicketForm from './TicketForm';
 const container = document.querySelector('.container'); // console.log(container);
 const ticketForm = new TicketForm();
 // let parentElementDel = null;
-console.log(ticketForm);
+// console.log(ticketForm);
 
 export default class TicketView {
   constructor() {
@@ -39,6 +39,10 @@ export default class TicketView {
       inputCheckbox.setAttribute('type', 'checkbox');
       inputCheckbox.className = 'checkbox-input';
       inputDiv.appendChild(inputCheckbox);
+      inputCheckbox.addEventListener('click', (e) => {
+        this.inputCheckbox(e);
+      });
+
       const title = document.createElement('div');
       title.className = 'title';
       title.textContent = tickets[i].name;
@@ -64,10 +68,13 @@ export default class TicketView {
       buttonEdit.classList.add('button-edit');
       ticket.appendChild(buttonEdit);
       buttonEdit.addEventListener('click', (e) => {
-        this.modalEdit(e);
+        const eTargetTicketElementEdit = e.target.closest('.ticket-element');
+        this.modalEdit(eTargetTicketElementEdit);
         const ticketElem = e.target.closest('.ticket-element');
-        const modalTitle = ticketElem.querySelector('.title').textContent; // краткое описание
-        const description = ticketElem.querySelector('.description').textContent; // подробное описание
+        // краткое описание
+        const modalTitle = ticketElem.querySelector('.title').textContent;
+        // подробное описание
+        const description = ticketElem.querySelector('.description').textContent;
         const modalEdit = document.querySelector('.modal-edit');
         const dInputModal = modalEdit.querySelector('input.d');
         const ddInputModal = modalEdit.querySelector('input.dd');
@@ -80,16 +87,12 @@ export default class TicketView {
       buttonX.classList.add('button-x');
       buttonX.textContent = 'X';
       buttonX.addEventListener('click', (e) => {
-        //
-        // console.log('buttonX');
-        // parentElementDel = e.target.closest('.ticket-element');
-        const eTargetTicketElement = e.target.closest('.ticket-element');
-        this.modalDelete(eTargetTicketElement);
+        const eTargetTicketElementDel = e.target.closest('.ticket-element');
+        this.modalDelete(eTargetTicketElementDel);
       });
       ticket.appendChild(buttonX);
 
       const description = document.createElement('div');
-      // description.className = 'description display-none';
       description.classList.add('description');
       description.classList.add('display-none');
       description.textContent = tickets[i].description;
@@ -111,10 +114,10 @@ export default class TicketView {
                 ticketAll[ii].querySelector('.description').classList.add('display-none');
               }
             }
-            descriptionDisplay.classList.remove('display-none'); // console.log(descriptionDisplay);
+            descriptionDisplay.classList.remove('display-none');
           } else {
             descriptionDisplay.classList.add('display-none');
-          } // if () {}
+          }
         }
       });
       ticketElement.appendChild(description);
@@ -126,8 +129,9 @@ export default class TicketView {
     ticketForm.form('Добавить тикет');
   }
 
-  modalEdit(e) {
-    e.preventDefault();
+  modalEdit(eTargetTicketElementEdit) {
+    // e.preventDefault();
+
     ticketForm.form('Изменить тикет');
 
     const body = document.querySelector('body');
@@ -142,16 +146,48 @@ export default class TicketView {
     });
     const ok = document.querySelector('.btn-ok');
 
-    ok.addEventListener('click', (event) => {
-      event.preventDefault();
-      console.log(ok);
+    ok.addEventListener('click', (e) => {
+      e.preventDefault(); // console.log(ok);
+
+      this.editTicket(eTargetTicketElementEdit);
+      // location.reload(); // принудительно перезагрузка страницы
+      window.location.reload();
     });
   }
 
-  modalDelete(eTargetTicketElement) {
-    // e.preventDefault();
-    ticketForm.form('Удалить тикет');
+  async editTicket(eTargetTicketElementEdit) {
+    const idEdit = eTargetTicketElementEdit.querySelector('.id');
+    const title = document.querySelector('input.d');
+    const description = document.querySelector('input.dd');
+    const status = eTargetTicketElementEdit.querySelector('.checkbox-input');
 
+    // Объект, тело запроса
+    const objRequestBodyEdit = {
+      name: title.value,
+      description: description.value,
+      status: status.checked,
+    }; // console.log(objRequestBodyEdit); // let formData = new FormData(dobjRequestBodyEdit);
+    try {
+      const response = await fetch(`http://localhost:7070/?method=updateById&id=${idEdit.value}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(objRequestBodyEdit),
+      });
+      this.tickets = await response.json(); // console.log(this.tickets);
+    } catch (error) {
+      console.error('Ошибка:', error.message);
+      throw error;
+    }
+
+    const body = document.querySelector('body');
+    const modalOverlay = body.querySelector('.modal-overlay');
+    const modalEdit = body.querySelector('.modal-edit');
+    modalOverlay.remove();
+    modalEdit.remove();
+  }
+
+  modalDelete(eTargetTicketElementDel) {
+    ticketForm.form('Удалить тикет');
     const body = document.querySelector('body');
     body.insertAdjacentHTML('beforeEnd', '<div class="modal-overlay"></div>');
     const cansel = document.querySelector('.btn-cancel');
@@ -165,50 +201,14 @@ export default class TicketView {
     const ok = document.querySelector('.btn-ok');
 
     ok.addEventListener('click', () => {
-      // (event) => {   event.preventDefault();
-      // console.log(e.target);
-      this.deleteTicket(eTargetTicketElement);
-
-      // location.replace(); // принудительно перезагрузка страницы
+      this.deleteTicket(eTargetTicketElementDel);
+      // location.reload(); // принудительно перезагрузка страницы
       window.location.reload();
     });
   }
 
-  // async deleteTicket() {
-  //   console.log('кнопка Ok - Delete(X)');
-  //   const idDel = parentElementDel.querySelector('.id')
-  //   console.log(idDel.value);
-
-  //   try {
-  //     // const response = await fetch('http://localhost:7070/?method=deleteById&id=idDel.value', {
-  //     //   method: 'DELETE',
-  //     // }); // xhr
-
-  //     const xhr = new XMLHttpRequest();
-  //     const response = await xhr.open('GET', 'http://localhost:7070/?method=allTickets');
-  //     xhr.send();
-  //     console.log(response);
-
-  //     if (!response.ok) {throw new Error('Ошибка при удалении');}
-  //     console.log(response);
-  //     console.log('УДАЛЁН ТИКЕТ');
-  //   } catch (error) {
-  //     console.error(error.message);
-  //     throw error;
-  //   }
-
-  //   const body = document.querySelector('body');
-  //   const modalOverlay = body.querySelector('.modal-overlay');
-  //   const modalEdit = body.querySelector('.modal-delete');
-  //   modalOverlay.remove();
-  //   modalEdit.remove();
-  // }
-
-  // async deleteTicket() {
-  async deleteTicket(eTargetTicketElement) {
-    // console.log('кнопка Ok - Delete(X)');     // console.log(eTargetTicketElement);
-    const idDel = eTargetTicketElement.querySelector('.id');
-    console.log(idDel.value);
+  async deleteTicket(eTargetTicketElementDel) {
+    const idDel = eTargetTicketElementDel.querySelector('.id');
 
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -216,14 +216,19 @@ export default class TicketView {
       if (xhr.readyState !== 4) return;
       console.log(xhr.responseText);
     };
-    xhr.open('DELETE', `http://localhost:7070/?method=deleteById&id=${idDel.value}`); // idDel.value - тело запроса
+
+    xhr.open('DELETE', `http://localhost:7070/?method=deleteById&id=${idDel.value}`);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send();
 
     const body = document.querySelector('body');
     const modalOverlay = body.querySelector('.modal-overlay');
-    const modalEdit = body.querySelector('.modal-delete');
+    const modalDel = body.querySelector('.modal-delete');
     modalOverlay.remove();
-    modalEdit.remove();
+    modalDel.remove();
+  }
+
+  inputCheckbox(e) {
+    console.log(e.target.checked); // const Checkbox = e.target;
   }
 }

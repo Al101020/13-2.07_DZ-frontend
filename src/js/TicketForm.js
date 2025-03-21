@@ -129,8 +129,7 @@ export default class TicketForm {
 
       modalDel.appendChild(divForm);
     } else {
-      modal.classList.add('modal-?');
-      console.log(modal);
+      modal.classList.add('modal-?'); // console.log(modal);
     }
   }
 }
