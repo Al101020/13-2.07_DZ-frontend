@@ -11,7 +11,6 @@ const ticketForm = new TicketForm();
 
 export default class TicketView {
   constructor() {
-    // this.name = 'Ticket View';
     this.addTicket = {
       id: '',
       status: '',
@@ -38,9 +37,14 @@ export default class TicketView {
       const inputCheckbox = document.createElement('input');
       inputCheckbox.setAttribute('type', 'checkbox');
       inputCheckbox.className = 'checkbox-input';
+      if (tickets[i].status === true) {
+        // console.log('TRUE');
+        inputCheckbox.checked = true;
+      }
       inputDiv.appendChild(inputCheckbox);
       inputCheckbox.addEventListener('click', (e) => {
-        this.inputCheckbox(e);
+        const thisChecke = this;
+        this.inputCheckbox(e, thisChecke);
       });
 
       const title = document.createElement('div');
@@ -130,8 +134,6 @@ export default class TicketView {
   }
 
   modalEdit(eTargetTicketElementEdit) {
-    // e.preventDefault();
-
     ticketForm.form('Изменить тикет');
 
     const body = document.querySelector('body');
@@ -166,7 +168,7 @@ export default class TicketView {
       name: title.value,
       description: description.value,
       status: status.checked,
-    }; // console.log(objRequestBodyEdit); // let formData = new FormData(dobjRequestBodyEdit);
+    };
     try {
       const response = await fetch(`http://localhost:7070/?method=updateById&id=${idEdit.value}`, {
         method: 'POST',
@@ -228,7 +230,28 @@ export default class TicketView {
     modalDel.remove();
   }
 
-  inputCheckbox(e) {
-    console.log(e.target.checked); // const Checkbox = e.target;
+  inputCheckbox(e, thisChecke) {
+    async function inputChecked() {
+      const eTargetTicketElementCheck = e.target.closest('.ticket-element');
+      const idCheck = eTargetTicketElementCheck.querySelector('.id');
+      const status = eTargetTicketElementCheck.querySelector('.checkbox-input');
+      const objRequestBodyChecked = {
+        status: status.checked,
+      };
+
+      try {
+        const response = await fetch(`http://localhost:7070/?method=updateById&id=${idCheck.value}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(objRequestBodyChecked),
+        });
+        thisChecke.tickets = await response.json();
+      } catch (error) {
+        console.error('Ошибка:', error.message);
+        throw error;
+      }
+    }
+
+    inputChecked(e);
   }
 }
